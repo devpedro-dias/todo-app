@@ -35,7 +35,7 @@ export const TASKS = [
     status: 'not_started',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Meditar',
     description: 'Meditar por 1 minuto',
     time: 'evening',
