@@ -1,6 +1,7 @@
 import "./AddTaskDialog.css"
 
 import { useEffect, useRef, useState } from "react"
+import { toast } from 'sonner'
 import { createPortal } from "react-dom"
 import { CSSTransition } from "react-transition-group"
 import { v4 } from "uuid"
@@ -19,12 +20,17 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
   useEffect(() => {
     if (!isOpen) {
       setTitle("")
-      setTime("")
+      setTime("morning")
       setDescription("")
     }
   }, [isOpen])
-  
+
   const handleSaveClick = () => {
+    if (!title.trim() || !time.trim() || !description.trim()) {
+      // toast.error("Preencha todos os campos.")
+      return alert("Preencha todos os campos.")
+    }
+
     handleSubmit({
       id: v4(),
       title,
