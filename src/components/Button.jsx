@@ -1,10 +1,10 @@
-import PropTypes from "prop-types"
-import { tv } from "tailwind-variants"
+import PropTypes from 'prop-types'
+import { tv } from 'tailwind-variants'
 
 const Button = ({
   children,
-  color = "primary",
-  size = "small",
+  color = 'primary',
+  size = 'small',
   className,
   ...rest
 }) => {
@@ -12,21 +12,22 @@ const Button = ({
     base: `flex items-center justify-center gap-2 rounded-md px-3 font-semibold transition hover:opacity-75`,
     variants: {
       color: {
-        primary: "bg-brand-primary text-white",
-        ghost: "bg-transparent text-brand-dark-gray",
-        secondary: "bg-brand-light-gray text-brand-dark-blue",
+        primary: 'bg-brand-primary text-white',
+        ghost: 'bg-transparent text-brand-dark-gray',
+        secondary: 'bg-brand-light-gray text-brand-dark-blue',
+        danger: 'bg-brand-danger text-white',
       },
       size: {
-        small: "py-1 text-xs",
-        large: "py-2 text-sm",
+        small: 'py-1 text-xs',
+        large: 'py-2 text-sm',
       },
       disabled: {
-        true: "cursor-not-allowed opacity-50 hover:opacity-50",
+        true: 'cursor-not-allowed opacity-50 hover:opacity-50',
       },
     },
     defaultVariants: {
-      color: "primary",
-      size: "small",
+      color: 'primary',
+      size: 'small',
     },
   })
 
@@ -42,8 +43,8 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(["primary", "ghost", "secondary"]),
-  size: PropTypes.oneOf(["small", "large"]),
+  color: PropTypes.oneOf(['primary', 'ghost', 'secondary', 'danger']),
+  size: PropTypes.oneOf(['small', 'large']),
   className: PropTypes.string,
 }
 
