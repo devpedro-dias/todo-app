@@ -1,9 +1,9 @@
-import PropTypes from "prop-types"
-import { useState } from "react"
-import { toast } from "sonner"
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
-import { CheckIcon, DetailsIcon, LoaderIcon, TrashIcon } from "../assets/icons"
-import Button from "../components/Button"
+import { CheckIcon, DetailsIcon, LoaderIcon, TrashIcon } from '../assets/icons'
+import Button from '../components/Button'
 
 const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
   const [deleteIsLoading, setDeleteIsLoading] = useState(false)
@@ -11,12 +11,12 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
   const handleDeleteClick = async () => {
     setDeleteIsLoading(true)
     const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     })
     if (!response.ok) {
       setDeleteIsLoading(false)
       return toast.error(
-        "Erro ao deletar a tarefa. Por favor, tente novamente."
+        'Erro ao deletar a tarefa. Por favor, tente novamente.'
       )
     }
     onDeleteSuccess(task.id)
@@ -33,7 +33,7 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
     }
 
     if (task.status === 'in_progress') {
-      return 'bg-brand-process text-brand-process text-sm'
+      return 'bg-brand-process text-brand-white text-sm'
     }
   }
 
@@ -85,8 +85,8 @@ TaskItem.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    time: PropTypes.oneOf(["morning", "afternoon", "evening"]).isRequired,
-    status: PropTypes.oneOf(["not_started", "in_progress", "done"]).isRequired,
+    time: PropTypes.oneOf(['morning', 'afternoon', 'evening']).isRequired,
+    status: PropTypes.oneOf(['not_started', 'in_progress', 'done']).isRequired,
   }).isRequired,
   handleCheckboxClick: PropTypes.func.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,

@@ -1,16 +1,16 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
-const TasksSeparator = ({ content, icon }) => {
+const TasksSeparator = ({ title, icon }) => {
   return (
     <div className="flex gap-2 border-b border-solid border-brand-border pb-1">
       {icon}
-      <p className="text-sm text-brand-text-gray">{content}</p>
+      <p className="text-sm text-brand-text-gray">{title}</p>
     </div>
   )
 }
 
 TasksSeparator.propTypes = {
-  content: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
 }
 

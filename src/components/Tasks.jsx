@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { 
-  AddIcon, 
-  CloudSunIcon, 
+
+import {
+  AddIcon,
+  CloudSunIcon,
   MoonIcon,
   SunIcon,
-  TrashIcon, } from '../assets/icons'
-
-  import AddTaskDialog from './AddTaskDialog'
-  import Button from './Button'
-  import TaskItem from './TaskItem'
-  import TasksSeparator from './TasksSeparator'
+  TrashIcon,
+} from '../assets/icons'
+import AddTaskDialog from './AddTaskDialog'
+import Button from './Button'
+import TaskItem from './TaskItem'
+import TasksSeparator from './TasksSeparator'
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -18,8 +19,8 @@ const Tasks = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("http://localhost:3000/tasks", {
-        method: "GET",
+      const response = await fetch('http://localhost:3000/tasks', {
+        method: 'GET',
       })
       const tasks = await response.json()
       setTasks(tasks)
@@ -31,52 +32,41 @@ const Tasks = () => {
   const afternoonTasks = tasks.filter((task) => task.time === 'afternoon')
   const eveningTasks = tasks.filter((task) => task.time === 'evening')
 
+  const onDeleteTaskSuccess = async (taskId) => {
+    const newTasks = tasks.filter((task) => task.id !== taskId)
+    setTasks(newTasks)
+    toast.success('Tarefa deletada com sucesso!')
+  }
+
   const handleTaskCheckboxClick = (taskId) => {
     const newTasks = tasks.map((task) => {
       if (task.id !== taskId) {
         return task
       }
       if (task.status === 'not_started') {
-        toast.success("Tarefa iniciada com sucesso!")
-        return {
-          ...task,
-          status: 'in_progress',
-        }
+        toast.success('Tarefa iniciada com sucesso!')
+        return { ...task, status: 'in_progress' }
       }
       if (task.status === 'in_progress') {
-        toast.success("Tarefa concluída com sucesso!")
-        return {
-          ...task,
-          status: 'done',
-        }
+        toast.success('Tarefa concluída com sucesso!')
+        return { ...task, status: 'done' }
       }
       if (task.status === 'done') {
-        toast.success("Tarefa reiniciada com sucesso!")
-        return {
-          ...task,
-          status: 'not_started',
-        }
+        toast.success('Tarefa reiniciada com sucesso!')
+        return { ...task, status: 'not_started' }
       }
-
       return task
     })
-
     setTasks(newTasks)
-  }
-
-  const onDeleteTaskSuccess = async (taskId) => {
-    const newTasks = tasks.filter((task) => task.id !== taskId)
-    setTasks(newTasks)
-    toast.success("Tarefa deletada com sucesso!")
   }
 
   const onTaskSubmitSuccess = (task) => {
     setTasks([...tasks, task])
-    toast.success("Tarefa adicionada com sucesso!")
+    toast.success('Tarefa adicionada com sucesso!')
   }
 
   const onTaskSubmitError = () => {
-    toast.error("Erro ao adicionar tarefa. Por favor, tente novamente.")
+    toast.error('Erro ao adicionar tarefa. Por favor, tente novamente.')
   }
 
   return (
@@ -84,12 +74,12 @@ const Tasks = () => {
       <div className="flex w-full justify-between">
         <div>
           <span className="text-xs font-semibold text-brand-primary">
-            Minhas tarefas
+            Minhas Tarefas
           </span>
-          <h2 className="text-xl font-semibold">Minhas tarefas</h2>
+          <h2 className="text-xl font-semibold">Minhas Tarefas</h2>
         </div>
 
-        <div className="flex items-end gap-3">
+        <div className="flex items-center gap-3">
           <Button color="ghost">
             Limpar tarefas
             <TrashIcon />
@@ -111,7 +101,7 @@ const Tasks = () => {
 
       <div className="rounded-xl bg-white p-6">
         <div className="space-y-3">
-          <TasksSeparator icon={<SunIcon />} content="Manhã" />
+          <TasksSeparator title="Manhã" icon={<SunIcon />} />
           {morningTasks.map((task) => (
             <TaskItem
               key={task.id}
@@ -121,8 +111,9 @@ const Tasks = () => {
             />
           ))}
         </div>
+
         <div className="my-6 space-y-3">
-          <TasksSeparator icon={<CloudSunIcon />} content="Tarde" />
+          <TasksSeparator title="Tarde" icon={<CloudSunIcon />} />
           {afternoonTasks.map((task) => (
             <TaskItem
               key={task.id}
@@ -132,8 +123,9 @@ const Tasks = () => {
             />
           ))}
         </div>
+
         <div className="space-y-3">
-          <TasksSeparator icon={<MoonIcon />} content="Noite" />
+          <TasksSeparator title="Noite" icon={<MoonIcon />} />
           {eveningTasks.map((task) => (
             <TaskItem
               key={task.id}
@@ -147,5 +139,4 @@ const Tasks = () => {
     </div>
   )
 }
-
 export default Tasks

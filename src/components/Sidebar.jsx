@@ -1,5 +1,5 @@
-import { HomeIcon, TasksIcon } from "../assets/icons"
-import SidebarButton from "./SidebarButton"
+import { HomeIcon, TasksIcon } from '../assets/icons'
+import SidebarButton from './SidebarButton'
 
 const Sidebar = () => {
   return (
@@ -13,14 +13,14 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2 p-2">
-        <SideBarButton color="ghost">
+        <SidebarButton color="unselected">
           <HomeIcon />
           Início
-        </SideBarButton>
-        <SideBarButton color="selected">
+        </SidebarButton>
+        <SidebarButton color="selected">
           <TasksIcon />
           Minhas tarefas
-        </SideBarButton>
+        </SidebarButton>
       </div>
     </div>
   )
