@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { CheckIcon, DetailsIcon, LoaderIcon, TrashIcon } from '../assets/icons'
@@ -25,21 +26,21 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
 
   const getStatusClasses = () => {
     if (task.status === 'done') {
-      return 'bg-brand-primary text-brand-primary text-sm'
-    }
-
-    if (task.status === 'not_started') {
-      return 'bg-brand-dark-blue bg-opacity-10 text-brand-dark-blue text-sm'
+      return 'bg-brand-primary text-brand-primary'
     }
 
     if (task.status === 'in_progress') {
-      return 'bg-brand-process text-brand-white text-sm'
+      return 'bg-brand-process text-brand-process'
+    }
+
+    if (task.status === 'not_started') {
+      return 'bg-brand-dark-blue bg-opacity-10 text-brand-dark-blue'
     }
   }
 
   return (
     <div
-      className={`flex items-center justify-between gap-2 rounded-lg bg-opacity-10 px-4 py-3 transition ${getStatusClasses()}`}
+      className={`flex items-center justify-between gap-2 rounded-lg bg-opacity-10 px-4 py-3 text-sm transition ${getStatusClasses()}`}
     >
       <div className="flex items-center gap-2">
         <label
@@ -53,9 +54,10 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
           />
           {task.status === 'done' && <CheckIcon />}
           {task.status === 'in_progress' && (
-            <LoaderIcon className="animate-spin text-brand-process" />
+            <LoaderIcon className="animate-spin text-brand-white" />
           )}
         </label>
+
         {task.title}
       </div>
 
@@ -72,9 +74,9 @@ const TaskItem = ({ task, handleCheckboxClick, onDeleteSuccess }) => {
           )}
         </Button>
 
-        <a href="#" className="transition hover:opacity-75">
+        <Link to={`/task/${task.id}`}>
           <DetailsIcon />
-        </a>
+        </Link>
       </div>
     </div>
   )
@@ -89,7 +91,6 @@ TaskItem.propTypes = {
     status: PropTypes.oneOf(['not_started', 'in_progress', 'done']).isRequired,
   }).isRequired,
   handleCheckboxClick: PropTypes.func.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired,
 }
 
 export default TaskItem
