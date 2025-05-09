@@ -4,15 +4,15 @@ import Button from "../components/Button"
 const TaskItem = ({ task, handleCheckboxClick, handleDeleteClick }) => {
   const getStatusClasses = () => {
     if (task.status === 'done') {
-      return 'bg-[#00ADB5] text-[#00ADB5] text-sm'
+      return 'bg-brand-primary text-brand-primary text-sm'
     }
 
     if (task.status === 'not_started') {
-      return 'bg-[#35383E] bg-opacity-10 text-[#35383E] text-sm'
+      return 'bg-brand-dark-blue bg-opacity-10 text-brand-dark-blue text-sm'
     }
 
     if (task.status === 'in_progress') {
-      return 'bg-[#FFAA04] text-[#FFAA04] text-sm'
+      return 'bg-brand-process text-brand-process text-sm'
     }
   }
 
@@ -40,7 +40,7 @@ const TaskItem = ({ task, handleCheckboxClick, handleDeleteClick }) => {
 
       <div className="flex items-center gap-2">
         <Button variant="ghost" onClick={handleDeleteClick(task.id)}>
-          <TrashIcon className="test-[#9A9C9F]" />
+          <TrashIcon className="test-brand-text-gray" />
         </Button>
 
         <a href="#" className="transition hover:opacity-75">
