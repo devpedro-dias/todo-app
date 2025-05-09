@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "title": "Estudar FSC",
-      "description": "Estudar para a prova de FSC",
-      "time": "morning",
-      "status": "done"
-    },
-    {
       "id": "2",
       "title": "Ler livro",
       "description": "Ler o livro de matemática",
