@@ -11,7 +11,7 @@ export const useDeleteTask = (taskId) => {
       return deletedTask
     },
     onSuccess: () => {
-      queryClient.setQueryData('tasks', (oldTasks) => {
+      queryClient.setQueryData(['tasks'], (oldTasks) => {
         return oldTasks.filter((task) => task.id !== taskId)
       })
     },

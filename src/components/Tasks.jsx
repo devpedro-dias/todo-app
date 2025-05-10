@@ -43,7 +43,7 @@ const Tasks = () => {
       }
       return task
     })
-    queryClient.setQueryData('tasks', newTasks)
+    queryClient.setQueryData(['tasks'], newTasks)
   }
 
   return (
