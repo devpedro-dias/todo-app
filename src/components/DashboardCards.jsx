@@ -14,7 +14,7 @@ const DashboardCards = () => {
   const completedTasks = tasks?.filter((task) => task.status === 'done').length
 
   return (
-    <div className="grid grid-cols-4 gap-9">
+    <div className="grid gap-9 md:grid-cols-2 xl:grid-cols-4">
       <DashboardCard
         icon={<Tasks2Icon />}
         mainText={tasks?.length}

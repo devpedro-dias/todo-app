@@ -16,7 +16,7 @@ function Header({ subtitle, title }) {
         <h2 className="text-xl font-semibold">{title}</h2>
       </div>
 
-      <div className="flex items-end gap-3">
+      <div className="flex flex-col-reverse items-center gap-3 sm:flex-row sm:items-center">
         <Button color="ghost">
           Limpar tarefas
           <TrashIcon />

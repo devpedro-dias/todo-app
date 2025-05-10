@@ -7,7 +7,7 @@ const DashboardCard = ({ icon, mainText, secondaryText }) => {
           {mainText}
         </p>
       </div>
-      {secondaryText}
+      <p className="text-base">{secondaryText}</p>
     </div>
   )
 }

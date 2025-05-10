@@ -4,6 +4,7 @@ import CheckIcon from './check.svg?react'
 import ChevronRightIcon from './chevron-right.svg?react'
 import CloudSunIcon from './cloud-sun.svg?react'
 import DetailsIcon from './details.svg?react'
+import DoubleArrowIcon from './double-arrow.svg?react'
 import GlassWaterIcon from './glass-water.svg?react'
 import HomeIcon from './home.svg?react'
 import LoaderIcon from './loader.svg?react'
@@ -20,6 +21,7 @@ export {
   ChevronRightIcon,
   CloudSunIcon,
   DetailsIcon,
+  DoubleArrowIcon,
   GlassWaterIcon,
   HomeIcon,
   LoaderIcon,
