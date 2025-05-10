@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -13,10 +12,18 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 import Sidebar from '../components/Sidebar'
 import TimeSelect from '../components/TimeSelect'
+import { useDeleteTask } from '../hooks/data/use-delete-task'
+import { useGetTask } from '../hooks/data/use-get-task'
+import { useUpdateTask } from '../hooks/data/use-update-task'
 
 const TaskDetailsPage = () => {
   const { taskId } = useParams()
-  const [task, setTask] = useState()
+  const { mutate: updateTask } = useUpdateTask(taskId)
+  const { mutate: deleteTask } = useDeleteTask(taskId)
+  const { data: task } = useGetTask({
+    taskId,
+    onSuccess: (task) => reset(task),
+  })
   const navigate = useNavigate()
   const {
     register,
@@ -29,45 +36,25 @@ const TaskDetailsPage = () => {
     navigate(-1)
   }
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
-        method: 'GET',
-      })
-      const data = await response.json()
-      setTask(data)
-      reset(data)
-    }
-
-    fetchTask()
-  }, [taskId, reset])
-
   const handleSaveClick = async (data) => {
-    const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        title: data.title.trim(),
-        description: data.description.trim(),
-        time: data.time,
-      }),
+    updateTask(data, {
+      onSuccess: () => {
+        toast.success('Tarefa salva com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro ao salvar a tarefa.')
+      },
     })
-    if (!response.ok) {
-      return toast.error('Ocorreu um erro ao salvar a tarefa.')
-    }
-    const newTask = await response.json()
-    setTask(newTask)
-    toast.success('Tarefa salva com sucesso!')
   }
 
   const handleDeleteClick = async () => {
-    const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
-      method: 'DELETE',
+    deleteTask(undefined, {
+      onSuccess: () => {
+        toast.success('Tarefa deletada com sucesso!')
+        navigate(-1)
+      },
+      onError: () => toast.error('Ocorreu um erro ao deletar a tarefa.'),
     })
-    if (!response.ok) {
-      return toast.error('Ocorreu um erro ao deletar a tarefa.')
-    }
-    toast.success('Tarefa deletada com sucesso!')
-    navigate(-1)
   }
 
   return (
@@ -114,7 +101,7 @@ const TaskDetailsPage = () => {
                 {...register('title', {
                   required: 'O título é obrigatório.',
                   validate: (value) => {
-                    if (value.trim()) {
+                    if (!value.trim()) {
                       return 'O título não pode ser vazio.'
                     }
                     return true
@@ -140,7 +127,7 @@ const TaskDetailsPage = () => {
                 {...register('description', {
                   required: 'A descrição é obrigatória.',
                   validate: (value) => {
-                    if (value.trim()) {
+                    if (!value.trim()) {
                       return 'A descrição não pode ser vazia.'
                     }
                     return true
@@ -150,12 +137,12 @@ const TaskDetailsPage = () => {
               />
             </div>
           </div>
-          <div className="mt-2 flex w-full justify-end gap-3">
+          <div className="flex w-full justify-end gap-3">
             <Button
               size="large"
               color="primary"
-              type="submit"
               disabled={isSubmitting}
+              type="submit"
             >
               {isSubmitting && <LoaderIcon className="animate-spin" />}
               Salvar
